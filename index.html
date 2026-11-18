@@ -24,7 +24,7 @@ body{font-family:'LXGW WenKai TC','Noto Sans TC',serif;padding-left:max(0px,env(
 .mc.flip{animation:flip .35s ease-out}
 @keyframes flip{0%{transform:rotateY(90deg)}100%{transform:rotateY(0)}}
 @media (prefers-reduced-motion:reduce){.mc.flip{animation:none}}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;max-width:calc(100% - 32px);
+.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;max-width:calc(100% - 32px);
   background:var(--paper);color:var(--ink);border:1.5px solid var(--gold-m);border-radius:10px;padding:10px 16px;font-size:15px;line-height:1.5;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .menu{position:fixed;inset:0;z-index:40;background:var(--ink);overflow-y:auto;
   padding:calc(20px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) 40px max(20px,env(safe-area-inset-left,0px))}
@@ -92,6 +92,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
 .tK .asm{margin:8px 24px 0 44px;font-size:14px;line-height:1.8;color:var(--mut)}
 .tK .wkn{display:flex;justify-content:space-between;align-items:center;margin:10px 24px 0;font-size:15px;color:var(--mut)}
 .tK .wkn b{font:500 17px 'Bodoni Moda';color:var(--ink)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;max-width:390px;margin:0 auto;display:flex;background:var(--paper);border-top:1.5px solid var(--gold-m);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -4px 14px rgba(0,0,0,.35)}
+.tabs button{flex:1;font:inherit;font-size:15px;padding:12px 0 14px;background:none;border:0;border-top:3px solid transparent;color:var(--mut);cursor:pointer}
+.tabs button[aria-current="page"]{color:var(--blue);border-top-color:var(--blue);font-weight:700}
+.wrap{padding-bottom:72px}
+html{scroll-padding-bottom:80px}
+.menu details{margin-top:18px;border-top:1px solid #2a2f55;padding-top:10px}
+.menu summary{color:var(--gold-m);cursor:pointer;font-size:15px}
 .tK{--blue:#1F3360;--ink:#111430;--violet:#2C1F4C;--gold-d:#946B38;--gold-m:#D3B27B;--gold-l:#F9E6C1;--paper:#FCF1DD;--gold-t:#84602F;--mut:#615E6B;--sub:#A29E9A;--line:#E6D6B6}
 .tK *{box-sizing:border-box;margin:0;padding:0}
 .tK .phone{width:390px;height:844px;overflow:hidden;position:relative}
@@ -659,7 +666,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
 .tH .H2 .st.g{border-color:var(--gold-d);color:var(--gold-t);border-style:dashed}
 </style>
 
-<div class="bar"><span class="tag">試用版・假資料</span><span class="now" id="now"></span><span><button class="ghost" id="back" type="button">上一頁</button> <button id="all" type="button">切換・全部頁面</button></span></div>
+<div class="bar"><span class="tag">試用版・假資料</span><span class="now" id="now"></span><span><button id="all" type="button">試用設定</button></span></div>
 <div class="wrap"><div class="stage" id="stage">
 <section class="scr tK" data-s="K1" hidden><div class="phone felt" id="K1">
  <div class="sb">10:12<i>●●● ▲ ▮</i></div>
@@ -903,17 +910,19 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
  <div class="leg">算到 11/16（平日班和週末班都算）。點一個人看每天明細；點某一天可以標記或取消遲到。</div>
 </div></section>
 </div></div>
+<nav class="tabs" id="tabs" aria-label="主選單" hidden></nav>
 
 <div class="menu" id="menu" hidden>
  <button class="x" type="button" id="close" style="font:inherit;background:none;border:1px solid var(--gold-m);color:var(--gold-m);border-radius:6px;padding:6px 12px">關閉</button>
  <h2>全部頁面</h2>
  <div class="ctl">
-  <div class="row"><span class="lab">身分</span><span class="seg2" id="roleSeg"><button type="button" data-r="teacher">老師</button><button type="button" data-r="asst">助教</button><button type="button" data-r="admin">管理者</button></span></div>
+  <div class="row"><span class="lab">身分</span><span class="seg2" id="roleSeg"><button type="button" data-r="teacher">老師</button><button type="button" data-r="asst">助教</button><button type="button" data-r="admin">管理者</button><button type="button" data-r="parent">家長</button></span></div>
   <div class="row"><span class="lab">今天</span><span class="seg2" id="daySeg"><button type="button" data-d="六">週六</button><button type="button" data-d="日">週日</button><button type="button" data-d="三">週三</button></span></div>
   <div class="ro" id="ro" hidden>今天沒有排到你的課：只能看，不能點名、不能改資料</div>
  </div>
  <div class="perm" id="perm"></div>
  <p style="margin-top:14px">上面可以切換「身分」和「今天是哪天」，看每個人看到什麼、能改什麼。建議從「這週的課」開始：點 B 班的「開始點名」，在點名牆點背面的牌就會翻成「到」。每頁能點的地方都可以點點看。</p>
+ <details><summary>全部頁面（只有試用版有，正式 app 用底下的分頁）</summary>
  <h3>老師：上課當天</h3>
  <a href="#k1">這週的課<small>課表</small></a>
  <a href="#k2">點名<small>點牌翻成到</small></a>
@@ -935,6 +944,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
  <a href="#l3">聯絡簿<small>複習影片在最上面</small></a>
  <a href="#m3">作業回饋</a>
  <a href="#p1">魔術護照<small>草稿・集點卡</small></a>
+ </details>
 </div>
 
 <script>
@@ -948,7 +958,7 @@ function toast(msg){let t=document.querySelector('.toast');if(!t){t=document.cre
 function go(id){location.hash=id.toLowerCase()}
 function show(){const id=(location.hash.slice(1)||'k1').toUpperCase();let hit=false;
   document.querySelectorAll('.scr').forEach(s=>{const on=s.dataset.s===id;s.hidden=!on;hit=hit||on});
-  if(!hit)return go('k1');if(id==='R2'&&role!=='admin'){toast('月底時數只有管理者看得到');return go('k1')}document.getElementById('menu').hidden=true;window.scrollTo(0,0);fit()}
+  if(!hit)return go('k1');const w=where(id);if(w&&(w.side==='parent')!==(role==='parent')){if(role!=='parent')lastStaff=role;role=w.side==='parent'?'parent':lastStaff;applyState()}if(id==='R2'&&role!=='admin'){toast('月底時數只有管理者看得到');return go('k1')}document.getElementById('menu').hidden=true;window.scrollTo(0,0);nav(id);fit()}
 function fit(){const s=Math.min(1,document.documentElement.clientWidth/390);stage.style.transform=`scale(${s})`;const ph=document.querySelector('.scr:not([hidden]) .phone');stage.style.height=((ph?ph.offsetHeight:844)*s)+'px';stage.parentElement.style.height=''}
 function link(s,q,to,msg){$(s,q).forEach(e=>{e.dataset.go=to||'';e.addEventListener('click',ev=>{ev.stopPropagation();if(msg)toast(msg);if(to)setTimeout(()=>go(to),msg?900:0)})})}
 function tap(s,q,fn){$(s,q).forEach(e=>{e.classList.add('tap');e.addEventListener('click',ev=>{ev.stopPropagation();fn(e,ev)})})}
@@ -1023,10 +1033,9 @@ link('M3','.tot3 .goldt','P1');
 
 document.getElementById('all').onclick=()=>{document.getElementById('menu').hidden=false};
 document.getElementById('close').onclick=()=>{document.getElementById('menu').hidden=true};
-document.getElementById('back').onclick=()=>history.length>1?history.back():go('k1');
 // ── 身分和今天是哪天（試用版用上面的切換鈕換）──
-const ME={teacher:'阿米',asst:'小傑',admin:'小安'};
-const ROLE_LABEL={teacher:'老師',asst:'助教',admin:'管理者'};
+const ME={teacher:'阿米',asst:'小傑',admin:'小安',parent:''};
+const ROLE_LABEL={teacher:'老師',asst:'助教',admin:'管理者',parent:'家長'};
 let role='teacher',today='六'; // 試用版的「今天」：六＝11/22、日＝11/23、三＝11/19
 const DAYS='一二三四五六日',W1='11/17–23',W2='11/24–30',DATE=w=>(w===W1?17:24);
 // 班表：[週幾, 地點, 班, 開始, 結束, 主老師, [助教 1–2 位], 機動, 人數]
@@ -1166,19 +1175,39 @@ link('R2','.top span:first-child','K1');link('R2','.top span:last-child','', '�
  link('P1','.top span:first-child','M3');link('P1','.pp-h .goldt','', '換獎品要到教室跟老師說（試用版沒做線上換）');
  tap('P1','.st1',e=>toast(e.querySelector('b').textContent+' 上了「'+e.querySelector('span').textContent+'」'));}
 // 上面的切換鈕
-const PERM={teacher:'<b>老師（阿米）</b><br>只看到自己排到的課。排到課的那天可以點名、寫聯絡簿；沒排到課的日子全部只能看。作業批改不限哪天。',
+const PERM={parent:'<b>家長（林小橙的媽媽）</b><br>只看自己小孩的聯絡簿、作業回饋、魔術護照；都只能看，不能改。',teacher:'<b>老師（阿米）</b><br>只看到自己排到的課。排到課的那天可以點名、寫聯絡簿；沒排到課的日子全部只能看。作業批改不限哪天。',
  asst:'<b>助教（小傑）</b><br>只看到自己排到的課。排到課的那天可以幫忙點名；聯絡簿由主老師寫；不能改學員資料。',
  admin:'<b>管理者（小安）</b><br>看得到全部的課，隨時可以改排班、學員資料、點數，修正點名紀錄，看每個人的月底時數。'};
 function applyState(){document.querySelectorAll('#roleSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.r===role));
   document.querySelectorAll('#daySeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===today));
-  const ro=document.getElementById('ro');ro.hidden=!(role!=='admin'&&!hasToday());rDay=today;
+  const ro=document.getElementById('ro');ro.hidden=!(role!=='admin'&&role!=='parent'&&!hasToday());if(role!=='parent')lastStaff=role;rDay=today;
   document.getElementById('perm').innerHTML=PERM[role];document.getElementById('hoursLink').hidden=role!=='admin';
   renderK1();renderR1();renderR2();
   const cur=(location.hash.slice(1)||'k1').toUpperCase();if(cur==='R2'&&role!=='admin'){toast('月底時數只有管理者看得到');go('K1')}
-  document.getElementById('now').textContent=ROLE_LABEL[role]+'・'+'週'+today+(role!=='admin'&&!hasToday()?'（只能看）':'')}
+  const cur2=(location.hash.slice(1)||'k1').toUpperCase(),w2=where(cur2);if(w2&&(w2.side==='parent')!==(role==='parent'))go(TABS[role==='parent'?'parent':'staff'][0][1]);else nav(cur2)}
 document.querySelectorAll('#roleSeg button').forEach(b=>b.addEventListener('click',()=>{role=b.dataset.r;applyState();toast('現在是「'+ROLE_LABEL[role]+'」看到的畫面')}));
 document.querySelectorAll('#daySeg button').forEach(b=>b.addEventListener('click',()=>{today=b.dataset.d;applyState()}));
 
+
+// 導覽（11/18 使用者：點來點去不知道在哪）：底下固定分頁列，每個分頁最多兩層（首頁＋一層子頁）
+const TABS={staff:[['上課','K1',['K2','K3','L1','L2']],['作業','M1',['M2']],['學員','K7',['J2','K4','K5']],['排班','R1',[]],['時數','R2',[]]],
+ parent:[['聯絡簿','L3',[]],['作業回饋','M3',[]],['護照','P1',[]]]};
+const TITLE={K1:'今天的課',K2:'點名',K3:'補課・調課',L1:'這堂聯絡簿',L2:'個別回饋',M1:'作業批改',M2:'發送前預覽',K7:'月簽到表',J2:'學員資料',K4:'好幾週沒來',K5:'本週新生',R1:'排班',R2:'十一月時數',L3:'聯絡簿',M3:'作業回饋',P1:'魔術護照'};
+let lastStaff='teacher';
+function where(id){for(const k of ['staff','parent'])for(const t of TABS[k])if(t[1]===id||t[2].includes(id))return {side:k,tab:t,root:t[1]===id};return null}
+function relink(s,q,to,txt,msg){$(s,q).forEach(e=>{const c=e.cloneNode(true);if(txt!==undefined)c.textContent=txt;c.removeAttribute('data-go');c.classList.remove('tap');e.replaceWith(c)});if(to||msg)link(s,q,to,msg)}
+// 每個分頁的首頁：左上角不再是「‹ 回去」，只是標籤
+relink('K1','.top span:last-child','','');relink('K7','.top span:first-child','','十一月');relink('M1','.top span:first-child','','作業 3 / 8 份');
+relink('R1','.top span:first-child','','');relink('R2','.top span:first-child','','');
+relink('L3','.top span:first-child','','吳小禾');relink('M3','.top span:first-child','','林小橙');relink('P1','.top span:first-child','','林小橙');
+// 子頁一律回到同一個分頁的首頁或上一層，不跳到別的分頁
+relink('K4','.top span:first-child','K7','‹ 學員');relink('K5','.top span:first-child','K7','‹ 學員');
+relink('J2','.st','', undefined,'這裡會列出這位學員每一堂的聯絡簿');
+function nav(id){const w=where(id);const bar=document.getElementById('tabs');if(!w){bar.hidden=true;return}
+  const list=TABS[w.side].filter(t=>t[1]!=='R2'||role==='admin');bar.hidden=false;
+  bar.innerHTML=list.map(t=>`<button type="button" data-to="${t[1]}"${t===w.tab?' aria-current="page"':''}>${t[0]}</button>`).join('');
+  bar.querySelectorAll('button').forEach(b=>b.onclick=()=>go(b.dataset.to));
+  document.getElementById('now').textContent=ROLE_LABEL[role]+(role==='parent'?'':'・週'+today+(role!=='admin'&&!hasToday()?'（只能看）':''))+'　'+(w.root?w.tab[0]:w.tab[0]+' › '+TITLE[id])}
 addEventListener('hashchange',()=>{closeSheet();show()});addEventListener('resize',fit);applyState();show();fit();
 </script>
 
