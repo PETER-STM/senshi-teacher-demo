@@ -8,14 +8,16 @@
 :root{--ink:#111430;--blue:#1F3360;--gold-m:#D3B27B;--gold-l:#F9E6C1;--paper:#FCF1DD;--mut:#615E6B;color-scheme:dark}
 html,body{background:var(--ink);color:var(--gold-l)}
 body{font-family:'LXGW WenKai TC','Noto Sans TC',serif;padding-left:max(0px,env(safe-area-inset-left,0px));padding-right:max(0px,env(safe-area-inset-right,0px));overflow-x:hidden}
-.bar{position:fixed;inset:0 0 auto;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:8px;
+.bar{position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;white-space:nowrap;
   padding:calc(6px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 6px max(12px,env(safe-area-inset-left,0px));
   background:var(--ink);border-bottom:1px solid #2a2f55;font-size:13px}
 .bar .tag{color:var(--gold-m)}
+@media (max-width:400px){.bar .tag{display:none}}
 .bar button{font:inherit;font-size:14px;color:var(--ink);background:var(--gold-m);border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
 .bar button.ghost{background:none;color:var(--gold-m);border:1px solid var(--gold-m)}
-.wrap{padding-top:calc(44px + env(safe-area-inset-top,0px));display:flex;justify-content:center}
-.stage{width:390px;transform-origin:top left}
+.wrap{display:block}
+.stage .scr .sb{height:12px;padding:0}
+.stage{width:390px;margin:0 auto;transform-origin:top left}
 .scr .sb{visibility:hidden}
 .scr [data-go],.scr .tap{cursor:pointer}
 .scr [data-go]:active,.scr .tap:active{opacity:.6}
@@ -24,7 +26,7 @@ body{font-family:'LXGW WenKai TC','Noto Sans TC',serif;padding-left:max(0px,env(
 @media (prefers-reduced-motion:reduce){.mc.flip{animation:none}}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;max-width:calc(100% - 32px);
   background:var(--paper);color:var(--ink);border:1.5px solid var(--gold-m);border-radius:10px;padding:10px 16px;font-size:15px;line-height:1.5;box-shadow:0 6px 18px rgba(0,0,0,.4)}
-.menu{position:fixed;inset:0;z-index:40;background:rgba(17,20,48,.96);overflow-y:auto;
+.menu{position:fixed;inset:0;z-index:40;background:var(--ink);overflow-y:auto;
   padding:calc(20px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) 40px max(20px,env(safe-area-inset-left,0px))}
 .menu h2{font-size:22px;color:var(--gold-l);margin:0 0 4px}
 .menu p{color:#A29E9A;font-size:14px;margin:0 0 18px;line-height:1.6}
@@ -37,13 +39,14 @@ body{font-family:'LXGW WenKai TC','Noto Sans TC',serif;padding-left:max(0px,env(
 .sheet b{font-size:16px}
 .sheet button{font:inherit;font-size:16px;padding:12px;border-radius:8px;border:1px solid var(--gold-m);background:#fff;color:var(--ink);cursor:pointer}
 button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-offset:2px}
-.bar{flex-direction:column;align-items:stretch}
-.bar .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.bar .now{color:var(--gold-l)}
+.menu .ctl{display:grid;gap:10px;margin:0 0 14px}
+.menu .ctl .row{display:flex;align-items:center;gap:8px}
 .seg2{display:inline-flex;border:1px solid var(--gold-m);border-radius:6px;overflow:hidden}
-.seg2 button{background:none;color:var(--gold-m);border-radius:0;padding:5px 9px;font-size:13px}
+.seg2 button{font:inherit;border:0;cursor:pointer;background:none;color:var(--gold-m);border-radius:0;padding:5px 9px;font-size:13px}
 .seg2 button[aria-pressed="true"]{background:var(--gold-m);color:var(--ink)}
-.bar .lab{color:#A29E9A;font-size:12px;margin-right:4px}
-.bar .ro{color:var(--paper);background:#5a3d1f;border-radius:6px;padding:5px 8px;font-size:13px;line-height:1.5}
+.menu .lab{color:#A29E9A;font-size:12px;margin-right:4px}
+.menu .ro,.bar .ro{color:var(--paper);background:#5a3d1f;border-radius:6px;padding:5px 8px;font-size:13px;line-height:1.5}
 .menu .perm{border:1px solid var(--gold-m);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.7;color:var(--gold-l)}
 .menu .perm b{color:var(--gold-m);font-weight:400}
 .tK .rs{margin:0 24px;padding:12px 0;border-bottom:1px solid var(--line)}
@@ -56,6 +59,16 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
 .tK .rs .ppl b.me{color:var(--blue);border-bottom:2px solid var(--gold-d)}
 .tK .rs .ppl b.none{color:#B5A27D;border-bottom-style:dashed}
 .tK .place{margin:18px 24px 0;font-size:13px;color:var(--gold-t);letter-spacing:2px}
+.tK .sr{display:flex;justify-content:space-between;margin:0 24px;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+.tK .sr span:nth-child(2){font:500 15px 'Bodoni Moda';color:var(--gold-t)}
+.tK .sr.me span:first-child{border-bottom:2px solid var(--gold-d)}
+.tK .shift .leg{margin:8px 24px 0}
+.tK .rs.blk h3{font-weight:400;color:var(--gold-t)}
+.tK .addblk{margin:10px 24px 0;font-size:14px;color:var(--gold-t);text-decoration:underline}
+.tK tr.det td{font:500 13px 'Bodoni Moda';color:var(--mut);text-align:left;line-height:1.8;padding:6px 0 10px}
+.tK .wk7 span{font-size:16px;line-height:1.2;padding:8px 0}
+.tK .wk7 small{display:block;font:500 12px 'Bodoni Moda';color:var(--mut)}
+.tK .wk7 .off{opacity:.45}
 .tK .wkn{display:flex;justify-content:space-between;align-items:center;margin:10px 24px 0;font-size:15px;color:var(--mut)}
 .tK .wkn b{font:500 17px 'Bodoni Moda';color:var(--ink)}
 .tK{--blue:#1F3360;--ink:#111430;--violet:#2C1F4C;--gold-d:#946B38;--gold-m:#D3B27B;--gold-l:#F9E6C1;--paper:#FCF1DD;--gold-t:#84602F;--mut:#615E6B;--sub:#A29E9A;--line:#E6D6B6}
@@ -625,12 +638,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
 .tH .H2 .st.g{border-color:var(--gold-d);color:var(--gold-t);border-style:dashed}
 </style>
 
-<div class="bar">
- <div class="row"><span class="tag">試用版・假資料，不會真的送出</span><span><button class="ghost" id="back" type="button">上一頁</button> <button id="all" type="button">全部頁面</button></span></div>
- <div class="row"><span><span class="lab">身分</span><span class="seg2" id="roleSeg"><button type="button" data-r="teacher">老師</button><button type="button" data-r="asst">助教</button><button type="button" data-r="admin">管理者</button></span></span>
-  <span><span class="lab">今天</span><span class="seg2" id="daySeg"><button type="button" data-d="六">週六</button><button type="button" data-d="日">週日</button><button type="button" data-d="平">平日</button></span></span></div>
- <div class="ro" id="ro" hidden>今天是平日：只能看，不能點名、不能改資料</div>
-</div>
+<div class="bar"><span class="tag">試用版・假資料</span><span class="now" id="now"></span><span><button class="ghost" id="back" type="button">上一頁</button> <button id="all" type="button">切換・全部頁面</button></span></div>
 <div class="wrap"><div class="stage" id="stage">
 <section class="scr tK" data-s="K1" hidden><div class="phone felt" id="K1">
  <div class="sb">10:12<i>●●● ▲ ▮</i></div>
@@ -840,24 +848,30 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
 <section class="scr tK" data-s="R1" hidden><div class="phone paper" id="R1" style="height:auto;min-height:844px;padding-bottom:48px">
  <div class="sb">10:12</div>
  <div class="top"><span>‹ 課表</span><span></span></div>
- <div class="hd"><div class="d">Weekend roster</div><h1>週末排班</h1><p>每堂一位主老師、一位助教，需要時加一位機動；每週可能不一樣</p></div>
- <div class="wkn"><span class="prev tap">‹ 這週</span><b>11/22–23</b><span class="next tap">下週 ›</span></div>
- <div class="seg"><span data-d="六" class="on">週六</span><span data-d="日">週日</span></div>
+ <div class="hd"><div class="d">Weekly roster</div><h1>排班</h1><p>每堂一位主老師、1–2 位助教，需要時加一位機動；每週可能不一樣</p></div>
+ <div class="wkn"><span class="prev tap">‹ 這週</span><b>11/17–23</b><span class="next tap">下週 ›</span></div>
+ <div class="seg wk7"></div>
  <div class="list"></div>
+ <div class="shift"></div>
  <div class="leg note" style="margin-top:16px"></div>
 </div></section>
 <section class="scr tK" data-s="R2" hidden><div class="phone paper" id="R2" style="height:auto;min-height:844px;padding-bottom:48px">
  <div class="sb">10:12</div>
  <div class="top"><span>‹ 課表</span><span>匯出</span></div>
- <div class="hd"><div class="d">November</div><h1>十一月時數</h1><p>每點完一次名＝這堂算一次，自動加總；只有管理者看得到</p></div>
- <table class="m" style="margin:14px 24px 0;width:calc(100% - 48px);border-collapse:collapse"><thead><tr><th>老師</th><th>主老師</th><th>助教</th><th>機動</th><th>合計</th><th>小時</th></tr></thead><tbody></tbody></table>
- <div class="leg">算到 11/16（三個週末）。11/22 起每點完一堂名就自動加上去。點一個人可以看明細。</div>
+ <div class="hd"><div class="d">November</div><h1>十一月時數</h1><p>照上班時間算：第一段前 30 分到最後一段後 30 分，自動加總；只有管理者看得到</p></div>
+ <table class="m" style="margin:14px 24px 0;width:calc(100% - 48px);border-collapse:collapse"><thead><tr><th>老師</th><th>上班天數</th><th>帶課（堂）</th><th>小時</th></tr></thead><tbody></tbody></table>
+ <div class="leg">算到 11/16（平日班和週末班都算）。補課、改作業、整理環境排在上班時間裡就算進去。點一個人看每天的上下班時間。</div>
 </div></section>
 </div></div>
 
 <div class="menu" id="menu" hidden>
  <button class="x" type="button" id="close" style="font:inherit;background:none;border:1px solid var(--gold-m);color:var(--gold-m);border-radius:6px;padding:6px 12px">關閉</button>
  <h2>全部頁面</h2>
+ <div class="ctl">
+  <div class="row"><span class="lab">身分</span><span class="seg2" id="roleSeg"><button type="button" data-r="teacher">老師</button><button type="button" data-r="asst">助教</button><button type="button" data-r="admin">管理者</button></span></div>
+  <div class="row"><span class="lab">今天</span><span class="seg2" id="daySeg"><button type="button" data-d="六">週六</button><button type="button" data-d="日">週日</button><button type="button" data-d="三">週三</button></span></div>
+  <div class="ro" id="ro" hidden>今天沒有排到你的課：只能看，不能點名、不能改資料</div>
+ </div>
  <div class="perm" id="perm"></div>
  <p style="margin-top:14px">上面可以切換「身分」和「今天是哪天」，看每個人看到什麼、能改什麼。建議從「這週的課」開始：點 B 班的「開始點名」，在點名牆點背面的牌就會翻成「到」。每頁能點的地方都可以點點看。</p>
  <h3>老師：上課當天</h3>
@@ -870,7 +884,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
  <a href="#m1">作業批改<small>一份多個魔術</small></a>
  <a href="#m2">發送前預覽<small>週五 18:00 發</small></a>
  <h3>排班和時數</h3>
- <a href="#r1">週末排班<small>主老師・助教・機動</small></a>
+ <a href="#r1">排班<small>一到日・主老師・助教・機動</small></a>
  <a href="#r2" id="hoursLink" hidden>十一月時數<small>只有管理者</small></a>
  <h3>老師：其他</h3>
  <a href="#k7">月簽到表</a>
@@ -970,25 +984,41 @@ document.getElementById('back').onclick=()=>history.length>1?history.back():go('
 // ── 身分和今天是哪天（試用版用上面的切換鈕換）──
 const ME={teacher:'阿米',asst:'小傑',admin:'小安'};
 const ROLE_LABEL={teacher:'老師',asst:'助教',admin:'管理者'};
-let role='teacher',today='六'; // 六＝11/22 週六、日＝11/23 週日、平＝11/19 週三
-const W={'11/22–23':[
- ['六','板橋','魔術體驗課','09:00','10:00','阿米','','',6],['六','板橋','B 班','10:00','12:00','阿米','小傑','',8],['六','板橋','A 班','13:00','15:00','阿米','小薰','',10],
- ['六','中正','A 班','10:00','12:00','阿凱','Momo','大寶',9],['六','信義','A 班','14:00','16:00','Leo','小傑','',7],
- ['日','永和','A 班','10:00','12:00','小薰','阿米','',9],['日','信義','B 班','10:00','12:00','大寶','小傑','',6],['日','微風','A 班','13:00','15:00','阿凱','小傑','',7],['日','微風','B 班','15:30','17:30','Leo','Momo','阿米',8]],
- '11/29–30':[
- ['六','板橋','B 班','10:00','12:00','阿米','Momo','',8],['六','板橋','A 班','13:00','15:00','小薰','阿米','',10],['六','中正','A 班','10:00','12:00','阿凱','小傑','',9],['六','信義','A 班','14:00','16:00','Leo','大寶','小傑',7],
- ['日','永和','A 班','10:00','12:00','小薰','小傑','',9],['日','信義','B 班','10:00','12:00','大寶','阿凱','阿米',6],['日','微風','A 班','13:00','15:00','阿米','阿凱','',7],['日','微風','B 班','15:30','17:30','Leo','Momo','',8]]};
-const ROST=Object.fromEntries(Object.entries(W).map(([k,v])=>[k,v.map(r=>({d:r[0],place:r[1],cls:r[2],t1:r[3],t2:r[4],main:r[5],asst:r[6],flt:r[7],n:r[8]}))]));
-const B=ROST['11/22–23'][1]; // 點名牆那堂：11/22 週六板橋 B 班
+let role='teacher',today='六'; // 試用版的「今天」：六＝11/22、日＝11/23、三＝11/19
+const DAYS='一二三四五六日',W1='11/17–23',W2='11/24–30',DATE=w=>(w===W1?17:24);
+// 班表：[週幾, 地點, 班, 開始, 結束, 主老師, [助教 1–2 位], 機動, 人數]
+const W={'11/17–23':[
+ ['六','板橋','魔術體驗課','09:00','10:00','阿米',[],'',6],['六','板橋','B 班','10:00','12:00','阿米',['小傑'],'',8],['六','板橋','A 班','13:00','15:00','阿米',['小薰','Momo'],'',10],
+ ['六','中正','A 班','10:00','12:00','阿凱',['Momo'],'大寶',9],['六','信義','A 班','14:00','16:00','Leo',['小傑'],'',7],
+ ['日','永和','A 班','10:00','12:00','小薰',['阿米'],'',9],['日','信義','B 班','10:00','12:00','大寶',['小傑'],'',6],['日','微風','A 班','13:00','15:00','阿凱',['小傑','Momo'],'',7],['日','微風','B 班','15:30','17:30','Leo',['Momo'],'阿米',8],
+ ['三','板橋','C 班','18:30','20:00','小薰',['Momo'],'',8],['三','微風','C 班','19:00','20:30','Leo',['小傑'],'',7],['三','勤美','A 班','18:30','20:00','阿凱',['大寶'],'',9],['五','勤美','B 班','19:00','20:30','阿米',['小傑'],'',8],['六','勤美','A 班','10:00','12:00','Leo',['小薰'],'',9]],
+ '11/24–30':[
+ ['六','板橋','B 班','10:00','12:00','阿米',['Momo'],'',8],['六','板橋','A 班','13:00','15:00','小薰',['阿米','Momo'],'',10],['六','中正','A 班','10:00','12:00','阿凱',['小傑'],'',9],['六','信義','A 班','14:00','16:00','Leo',['大寶'],'小傑',7],
+ ['日','永和','A 班','10:00','12:00','小薰',['小傑'],'',9],['日','信義','B 班','10:00','12:00','大寶',['阿凱'],'阿米',6],['日','微風','A 班','13:00','15:00','阿米',['阿凱','Momo'],'',7],['日','微風','B 班','15:30','17:30','Leo',['Momo'],'',8],
+ ['三','板橋','C 班','18:30','20:00','小薰',['Momo'],'',8],['三','微風','C 班','19:00','20:30','Leo',['小傑'],'',7],['三','勤美','A 班','18:30','20:00','阿凱',['大寶'],'',9],['五','勤美','B 班','19:00','20:30','阿米',['小傑'],'',8],['六','勤美','A 班','10:00','12:00','大寶',['小薰'],'',9]]};
+// 課以外的時段（補課／改作業／整理環境），管理者排；那個地點當天有排課的人都算在內：[週幾, 地點, 種類, 開始, 結束]
+const BLK={'11/17–23':[['六','板橋','補課','12:00','13:00'],['六','板橋','改作業','15:00','16:00'],['日','微風','整理環境','12:00','13:00'],['三','勤美','整理環境','20:00','20:30']],
+ '11/24–30':[['六','板橋','改作業','12:00','13:00'],['日','微風','補課','12:00','13:00'],['日','微風','整理環境','17:30','18:00']]};
+const ROST=Object.fromEntries(Object.entries(W).map(([k,v])=>[k,v.map(r=>({d:r[0],place:r[1],cls:r[2],t1:r[3],t2:r[4],main:r[5],asst:[...r[6]],flt:r[7],n:r[8]}))]));
+const BL=Object.fromEntries(Object.entries(BLK).map(([k,v])=>[k,v.map(r=>({d:r[0],place:r[1],kind:r[2],t1:r[3],t2:r[4]}))]));
+const B=ROST['11/17–23'][1]; // 點名牆那堂：11/22 週六板橋 B 班
+const staff=c=>[c.main,...c.asst,c.flt].filter(Boolean);
+const mins=s=>{const[a,b]=s.split(':').map(Number);return a*60+b},hhmm=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+// 某週某天每個人的上班時間：第一段前 30 分 ～ 最後一段後 30 分（課和補課、改作業、整理都算一段）
+function shifts(wk,d){const out={};const cs=ROST[wk].filter(c=>c.d===d);
+  const add=(n,a,b)=>{const o=out[n]||(out[n]={s:1e9,e:0,cls:0});o.s=Math.min(o.s,mins(a));o.e=Math.max(o.e,mins(b))};
+  cs.forEach(c=>staff(c).forEach(n=>{add(n,c.t1,c.t2);out[n].cls++}));
+  BL[wk].filter(b=>b.d===d).forEach(b=>blkWho(wk,b).forEach(n=>add(n,b.t1,b.t2)));
+  Object.values(out).forEach(o=>{o.s-=30;o.e+=30});return out}
+const blkWho=(wk,b)=>[...new Set(ROST[wk].filter(c=>c.d===b.d&&c.place===b.place).flatMap(staff))];
 const TEAM=['阿米','小傑','小薰','阿凱','Momo','大寶','Leo'];
-const isClassDay=()=>today!=='平';
-const onCls=c=>[c.main,c.asst,c.flt].includes(ME[role]);
-const DENY={weekday:'今天是平日，只能看，不能改（上課當天才能點名、寫聯絡簿）',notmine:'這堂不是你排到的課，只能看',notday:'這堂不是今天的課，只能看',asst:'聯絡簿由主老師寫和送出，助教只能看',admin:'只有管理者能改'};
+const hasToday=()=>ROST[W1].some(c=>c.d===today&&onCls(c));
+const onCls=c=>staff(c).includes(ME[role]);
+const DENY={weekday:'今天沒有排到你的課，只能看，不能改（排到課的那天才能點名、寫聯絡簿）',notmine:'這堂不是你排到的課，只能看',notday:'這堂不是今天的課，只能看',asst:'聯絡簿由主老師寫和送出，助教只能看',admin:'只有管理者能改'};
 function can(kind,c=B){if(role==='admin')return true;
   if(['student','roster','fixroll','hours','points'].includes(kind))return DENY.admin;
-  if(!isClassDay())return DENY.weekday;
   if(!onCls(c))return DENY.notmine;
-  if(c.d!==today)return DENY.notday;
+  if(c.d!==today)return hasToday()?DENY.notday:DENY.weekday;
   if(kind==='note'&&ME[role]!==c.main)return DENY.asst;
   return true}
 function guard(s,q,kind){const sec=document.querySelector(`[data-s="${s}"]`);
@@ -1007,70 +1037,86 @@ $('K7','table tr:not(.sum) td:not(:first-child)').forEach(td=>{if(td.classList.c
 
 // K1：照身分和今天，列出你排到的課
 function slotHTML(c,tag,p){return `<div class="slot paper${tag==='已點名'?' past':''}"><div class="frame"></div><div class="t">${c.t1}<small>– ${c.t2}</small></div><h3>${c.place} ${c.cls}</h3><p>${p}</p>${tag?`<span class="tag goldt">${tag==='開始點名'?'<span class="u">開始點名</span>':tag}</span>`:''}</div>`}
-const roleOf=c=>ME[role]===c.main?'主老師':ME[role]===c.asst?'助教':ME[role]===c.flt?'機動':'';
+const roleOf=c=>ME[role]===c.main?'主老師':c.asst.includes(ME[role])?'助教':ME[role]===c.flt?'機動':'';
 function renderK1(){const sec=document.querySelector('[data-s="K1"] .phone');
   sec.querySelectorAll('.slot,.empty').forEach(e=>e.remove());
   sec.querySelector('.top span:first-child').textContent=role==='admin'?'小安・管理者':ME[role]+(role==='asst'?'助教':'老師');
-  const days=sec.querySelectorAll('.days div');days.forEach(d=>d.classList.remove('on'));days[{六:5,日:6,平:2}[today]].classList.add('on');
-  const wk=ROST['11/22–23'];let list,html='';
-  if(today==='平'){list=wk.filter(c=>role==='admin'||onCls(c));
-    sec.querySelector('.hd h1').textContent=role==='admin'?'這個週末的課':'這個週末你的課';
-    html=`<div class="empty">今天 11/19 週三沒有課${role==='admin'?'':'，下面只能看'}</div>`+list.map(c=>slotHTML(c,role==='admin'?'':'只能看',`週${c.d}・${c.place}・${c.n} 位`+(roleOf(c)?'・你是'+roleOf(c):''))).join('');}
-  else{list=wk.filter(c=>c.d===today&&(role==='admin'||onCls(c)));
-    sec.querySelector('.hd h1').textContent=role==='admin'?'今天全部的課':'今天你的課';
-    html=list.map(c=>{const t=today==='六'?(c.t1<'10:00'?'已點名':c.t1==='10:00'?'開始點名':''):(c.t1==='10:00'?'開始點名':'');
-      return slotHTML(c,t,`${c.place}・${c.n} 位`+(roleOf(c)?'・你是'+roleOf(c):''))}).join('')||'<div class="empty">今天沒有排到你的課</div>';}
+  const days=sec.querySelectorAll('.days div');days.forEach(d=>d.classList.remove('on'));days[DAYS.indexOf(today)].classList.add('on');
+  const wk=ROST[W1];let html='';const mine=c=>role==='admin'||onCls(c);const list=wk.filter(c=>c.d===today&&mine(c)).sort((a,b)=>a.t1<b.t1?-1:1);
+  const dt=17+DAYS.indexOf(today);
+  if(!list.length){const rest=wk.filter(mine).sort((a,b)=>DAYS.indexOf(a.d)-DAYS.indexOf(b.d)||(a.t1<b.t1?-1:1));
+    sec.querySelector('.hd h1').textContent='這週你的課';
+    html=`<div class="empty">今天 11/${dt} 週${today}沒有排到你的課，下面只能看</div>`+rest.map(c=>slotHTML(c,'只能看',`週${c.d} 11/${17+DAYS.indexOf(c.d)}・${c.n} 位`+(roleOf(c)?'・你是'+roleOf(c):''))).join('');}
+  else{sec.querySelector('.hd h1').textContent=role==='admin'?'今天全部的課':'今天你的課';
+    html=list.map(c=>{const t=today==='六'?(c.t1<'10:00'?'已點名':c.t1==='10:00'?'開始點名':''):'開始點名';
+      return slotHTML(c,t,`${c.n} 位`+(roleOf(c)?'・你是'+roleOf(c):''))}).join('');}
   sec.querySelector('.foot').insertAdjacentHTML('beforebegin',html);
-  const n=today==='平'?0:list.length;sec.querySelector('.foot span').textContent=today==='平'?'平日不能點名':`今天 ${n} 堂・共 ${list.reduce((a,c)=>a+c.n,0)} 位`;
+  sec.querySelector('.foot span').textContent=list.length?`今天 ${list.length} 堂・共 ${list.reduce((a,c)=>a+c.n,0)} 位`:'今天沒有課可以點名';
   sec.querySelectorAll('.slot').forEach(s=>{s.classList.add('tap');s.addEventListener('click',()=>{
     if(s.classList.contains('past'))return go('K7');
     if(!s.querySelector('h3').textContent.includes('板橋 B 班'))toast('試用版每堂都先用板橋 B 班的點名牆');setTimeout(()=>go('K2'),s.querySelector('h3').textContent.includes('板橋 B 班')?0:900)})})}
 {const top=$('K1','.top')[0];const r=document.createElement('span');r.className='u';r.textContent='排班';top.insertBefore(r,top.lastElementChild);r.dataset.go='R1';r.addEventListener('click',()=>go('R1'))}
 link('K1','.top span:last-child','K7');link('K1','.foot .u','K3');
 
-// R1 週末排班
-let rWeek='11/22–23',rDay='六';
-function renderR1(){const ph=document.querySelector('[data-s="R1"] .phone');const list=ROST[rWeek].filter(c=>c.d===rDay);
-  ph.querySelector('.wkn b').textContent=rWeek;ph.querySelectorAll('.seg span').forEach(s=>s.classList.toggle('on',s.dataset.d===rDay));
-  const days=rWeek==='11/22–23'?{六:'11/22',日:'11/23'}:{六:'11/29',日:'11/30'};ph.querySelectorAll('.seg span').forEach(s=>s.textContent='週'+s.dataset.d+' '+days[s.dataset.d]);
-  const by={};list.forEach(c=>(by[c.place]=by[c.place]||[]).push(c));const me=role==='admin'?'':ME[role];
-  const nm=(c,k)=>`<b class="${c[k]?(c[k]===me?'me':''):'none'}" data-k="${k}" data-i="${ROST[rWeek].indexOf(c)}">${c[k]||'沒排'}</b>`;
-  ph.querySelector('.list').innerHTML=Object.entries(by).map(([p,cs])=>`<div class="place">${p}</div>`+cs.map(c=>`<div class="rs"><div class="h"><h3>${c.cls}</h3><span class="tm">${c.t1}–${c.t2}</span></div><div class="ppl"><span>主老師 ${nm(c,'main')}</span><span>助教 ${nm(c,'asst')}</span><span>機動 ${nm(c,'flt')}</span></div></div>`).join('')).join('');
-  ph.querySelector('.note').textContent=role==='admin'?'點名字可以換人；換了會通知被換的老師':'底線粗的是你。排班只有管理者能改';
-  ph.querySelectorAll('.ppl b').forEach(b=>{b.classList.add('tap');b.addEventListener('click',()=>{const r=can('roster');if(r!==true)return toast('排班只有管理者能改');
-    const c=ROST[rWeek][+b.dataset.i],k=b.dataset.k;document.querySelector('.sheet')?.remove();const d=document.createElement('div');d.className='sheet';
-    d.innerHTML=`<b>${c.place} ${c.cls}・${{main:'主老師',asst:'助教',flt:'機動'}[k]}</b>`+[...TEAM,''].map(t=>`<button type="button" data-t="${t}">${t||'不排人'}</button>`).join('')+'<button type="button" data-t="x">取消</button>';
-    d.addEventListener('click',e=>{const t=e.target.dataset?.t;if(t===undefined)return;d.remove();if(t==='x')return;c[k]=t;renderR1();renderK1();toast(t?`改好了：${t}，會通知他`:'這格先空著')});document.body.appendChild(d)})})}
+// R1 排班（一到日）
+let rWeek='11/17–23',rDay='六';
+function pickSheet(title,opts,fn){document.querySelector('.sheet')?.remove();const d=document.createElement('div');d.className='sheet';
+  d.innerHTML=`<b>${title}</b>`+opts.map((o,i)=>`<button type="button" data-i="${i}">${o}</button>`).join('')+'<button type="button" data-i="x">取消</button>';
+  d.addEventListener('click',e=>{const i=e.target.dataset?.i;if(i===undefined)return;d.remove();if(i!=='x')fn(+i)});document.body.appendChild(d)}
+function renderR1(){const ph=document.querySelector('[data-s="R1"] .phone');const all=ROST[rWeek],list=all.filter(c=>c.d===rDay),bl=BL[rWeek].filter(b=>b.d===rDay);
+  ph.querySelector('.wkn b').textContent=rWeek;
+  ph.querySelector('.wk7').innerHTML=[...DAYS].map((d,i)=>`<span data-d="${d}" class="tap${d===rDay?' on':''}${all.some(c=>c.d===d)?'':' off'}">${d}<small>${DATE(rWeek)+i}</small></span>`).join('');
+  ph.querySelectorAll('.wk7 span').forEach(s=>s.addEventListener('click',()=>{rDay=s.dataset.d;renderR1();fit()}));
+  const me=role==='admin'?'':ME[role],adm=role==='admin';
+  const nm=(c,k,j)=>{const v=k==='asst'?c.asst[j]:c[k];return `<b class="${v?(v===me?'me':''):'none'}" data-k="${k}" data-j="${j??''}" data-i="${all.indexOf(c)}">${v||'沒排'}</b>`};
+  const places=[...new Set([...list.map(c=>c.place),...bl.map(b=>b.place)])];
+  ph.querySelector('.list').innerHTML=(places.length?'':'<div class="leg" style="margin:18px 24px 0">這天沒有排課</div>')+places.map(p=>{
+    const items=[...list.filter(c=>c.place===p).map(c=>({t:c.t1,h:`<div class="rs"><div class="h"><h3>${c.cls}</h3><span class="tm">${c.t1}–${c.t2}</span></div><div class="ppl"><span>主老師 ${nm(c,'main')}</span><span>助教 ${c.asst.length?c.asst.map((_,j)=>nm(c,'asst',j)).join('、'):nm(c,'asst',0)}${adm&&c.asst.length===1?` <b class="none add" data-i="${all.indexOf(c)}">＋助教</b>`:''}</span><span>機動 ${nm(c,'flt')}</span></div></div>`})),
+      ...bl.filter(b=>b.place===p).map(b=>({t:b.t1,h:`<div class="rs blk" data-b="${BL[rWeek].indexOf(b)}"><div class="h"><h3>${b.kind}</h3><span class="tm">${b.t1}–${b.t2}</span></div><div class="ppl"><span>${blkWho(rWeek,b).join('、')||'還沒有人'}</span></div></div>`}))]
+      .sort((a,b)=>a.t<b.t?-1:1).map(x=>x.h).join('');
+    return `<div class="place">${p}</div>`+items+(adm?`<div class="addblk tap" data-p="${p}">＋ 加補課／改作業／整理時段</div>`:'')}).join('');
+  const sh=shifts(rWeek,rDay);
+  ph.querySelector('.shift').innerHTML=(Object.keys(sh).length?'<div class="place">這天的上班時間</div>':'')+Object.entries(sh).sort((a,b)=>a[1].s-b[1].s).map(([n,o])=>`<div class="sr${n===me?' me':''}"><span>${n}</span><span>${hhmm(o.s)}–${hhmm(o.e)}</span><span>${(o.e-o.s)/60} 小時</span></div>`).join('')+(Object.keys(sh).length?'<p class="leg" style="margin:8px 24px 0">第一段前 30 分到最後一段後 30 分；中間空檔、補課、改作業、整理都算在裡面</p>':'');
+  ph.querySelector('.note').textContent=adm?'點名字可以換人；換了會通知被換的老師':'底線粗的是你。排班只有管理者能改';
+  ph.querySelectorAll('.ppl b').forEach(b=>{b.classList.add('tap');b.addEventListener('click',()=>{if(can('roster')!==true)return toast('排班只有管理者能改');
+    const c=all[+b.dataset.i],k=b.dataset.k,j=+b.dataset.j||0;
+    if(b.classList.contains('add'))return pickSheet(`${c.place} ${c.cls}・加一位助教`,TEAM,i=>{c.asst.push(TEAM[i]);done(TEAM[i])});
+    pickSheet(`${c.place} ${c.cls}・${{main:'主老師',asst:'助教',flt:'機動'}[k]}`,[...TEAM,'不排人'],i=>{const t=i<TEAM.length?TEAM[i]:'';
+      if(k==='asst'){if(t)c.asst[j]=t;else c.asst.splice(j,1)}else c[k]=t;done(t)})})});
+  ph.querySelectorAll('.blk').forEach(e=>{e.classList.add('tap');e.addEventListener('click',()=>{if(can('roster')!==true)return toast('時段只有管理者能排');
+    const b=BL[rWeek][+e.dataset.b];pickSheet(`${b.place} ${b.t1}–${b.t2} ${b.kind}`,['改成補課','改成改作業','改成整理環境','刪掉這段'],i=>{if(i===3)BL[rWeek].splice(BL[rWeek].indexOf(b),1);else b.kind=['補課','改作業','整理環境'][i];done()})})});
+  ph.querySelectorAll('.addblk').forEach(e=>e.addEventListener('click',()=>{const SL=[['12:00','13:00'],['15:00','16:00'],['16:00','17:00'],['17:30','18:30']];
+    pickSheet(e.dataset.p+'・加什麼',['補課','改作業','整理環境'],k=>pickSheet('幾點',SL.map(s=>s.join('–')),i=>{BL[rWeek].push({d:rDay,place:e.dataset.p,kind:['補課','改作業','整理環境'][k],t1:SL[i][0],t2:SL[i][1]});done()}))}));
+  function done(t){renderR1();renderK1();renderR2();toast(t===undefined?'排好了，上班時間跟著重算':t?`改好了：${t}，會通知他`:'這格先空著');fit()}}
 {const ph=document.querySelector('[data-s="R1"] .phone');
  ph.querySelector('.top span:first-child').addEventListener('click',()=>go('K1'));ph.querySelector('.top span:first-child').classList.add('tap');
- ph.querySelector('.prev').addEventListener('click',()=>{rWeek='11/22–23';renderR1()});ph.querySelector('.next').addEventListener('click',()=>{rWeek='11/29–30';renderR1()});
- ph.querySelectorAll('.seg span').forEach(s=>{s.classList.add('tap');s.addEventListener('click',()=>{rDay=s.dataset.d;renderR1()})})}
+ ph.querySelector('.prev').addEventListener('click',()=>{rWeek='11/17–23';renderR1();fit()});ph.querySelector('.next').addEventListener('click',()=>{rWeek='11/24–30';renderR1();fit()});
+ }
 
-// R2 月底時數（只算點過名的堂；試用版算到 11/16，11/1、11/8、11/15 三個週末）
-function renderR2(){const weeks=['11/29–30','11/22–23','11/29–30'];const h=(a,b)=>{const[x,y]=a.split(':').map(Number),[p,q]=b.split(':').map(Number);return(p*60+q-x*60-y)/60};
-  const t={};TEAM.forEach(n=>t[n]={main:0,asst:0,flt:0,hr:0});
-  weeks.forEach(w=>W[w].forEach(r=>[[5,'main'],[6,'asst'],[7,'flt']].forEach(([i,k])=>{if(r[i]){t[r[i]][k]++;t[r[i]].hr+=h(r[3],r[4])}})));
-  const rows=TEAM.map(n=>[n,t[n]]).sort((a,b)=>b[1].hr-a[1].hr);
-  document.querySelector('[data-s="R2"] tbody').innerHTML=rows.map(([n,v])=>`<tr class="tap" data-n="${n}"><td>${n}</td><td>${v.main}</td><td>${v.asst}</td><td>${v.flt}</td><td>${v.main+v.asst+v.flt}</td><td>${v.hr%1?v.hr.toFixed(1):v.hr}</td></tr>`).join('');
-  document.querySelectorAll('[data-s="R2"] tbody tr').forEach(r=>r.addEventListener('click',()=>toast(`${r.dataset.n} 每一堂的明細（日期、哪一班、什麼角色）會列在這裡`)))}
+// R2 十一月時數：照上班時間算（第一段前 30 分～最後一段後 30 分），只算點過名的那天；試用版算 11/1–16
+function renderR2(){const MONTH=[];for(let n=1;n<=16;n++)MONTH.push(['11/'+n,n<3||n>9?W2:W1,DAYS[(n+4)%7]]);
+  const t={};TEAM.forEach(n=>t[n]={days:[],cls:0,min:0});
+  MONTH.forEach(([date,wk,d])=>Object.entries(shifts(wk,d)).forEach(([n,o])=>{t[n].days.push(`${date} ${hhmm(o.s)}–${hhmm(o.e)}`);t[n].cls+=o.cls;t[n].min+=o.e-o.s}));
+  const rows=TEAM.map(n=>[n,t[n]]).sort((a,b)=>b[1].min-a[1].min);
+  document.querySelector('[data-s="R2"] tbody').innerHTML=rows.map(([n,v])=>`<tr class="tap" data-n="${n}"><td>${n}</td><td>${v.days.length}</td><td>${v.cls}</td><td>${(v.min/60)%1?(v.min/60).toFixed(1):v.min/60}</td></tr><tr class="det" hidden><td colspan="4">${v.days.join('<br>')||'這個月沒有排班'}</td></tr>`).join('');
+  document.querySelectorAll('[data-s="R2"] tbody tr.tap').forEach(r=>r.addEventListener('click',()=>{r.nextElementSibling.hidden=!r.nextElementSibling.hidden;fit()}))}
 link('R2','.top span:first-child','K1');link('R2','.top span:last-child','', '可以匯出成表格給會計（試用版沒做）');
 
 // 上面的切換鈕
-const PERM={teacher:'<b>老師（阿米）</b><br>只看到自己排到的課。上課當天可以點名、寫聯絡簿；平日全部只能看。作業批改不限哪天。',
- asst:'<b>助教（小傑）</b><br>只看到自己排到的課。上課當天可以幫忙點名；聯絡簿由主老師寫；不能改學員資料。',
+const PERM={teacher:'<b>老師（阿米）</b><br>只看到自己排到的課。排到課的那天可以點名、寫聯絡簿；沒排到課的日子全部只能看。作業批改不限哪天。',
+ asst:'<b>助教（小傑）</b><br>只看到自己排到的課。排到課的那天可以幫忙點名；聯絡簿由主老師寫；不能改學員資料。',
  admin:'<b>管理者（小安）</b><br>看得到全部的課，隨時可以改排班、學員資料、點數，修正點名紀錄，看每個人的月底時數。'};
 function applyState(){document.querySelectorAll('#roleSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.r===role));
   document.querySelectorAll('#daySeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===today));
-  const ro=document.getElementById('ro');ro.hidden=!(role!=='admin'&&today==='平');
+  const ro=document.getElementById('ro');ro.hidden=!(role!=='admin'&&!hasToday());rDay=today;
   document.getElementById('perm').innerHTML=PERM[role];document.getElementById('hoursLink').hidden=role!=='admin';
   renderK1();renderR1();renderR2();
   const cur=(location.hash.slice(1)||'k1').toUpperCase();if(cur==='R2'&&role!=='admin'){toast('月底時數只有管理者看得到');go('K1')}
-  padTop()}
+  document.getElementById('now').textContent=ROLE_LABEL[role]+'・'+'週'+today+(role!=='admin'&&!hasToday()?'（只能看）':'')}
 document.querySelectorAll('#roleSeg button').forEach(b=>b.addEventListener('click',()=>{role=b.dataset.r;applyState();toast('現在是「'+ROLE_LABEL[role]+'」看到的畫面')}));
 document.querySelectorAll('#daySeg button').forEach(b=>b.addEventListener('click',()=>{today=b.dataset.d;applyState()}));
-function padTop(){document.querySelector('.wrap').style.paddingTop=document.querySelector('.bar').offsetHeight+'px'}
 
-addEventListener('hashchange',show);addEventListener('resize',()=>{fit();padTop()});applyState();show();fit();
+addEventListener('hashchange',show);addEventListener('resize',fit);applyState();show();fit();
 </script>
 
 </body></html>
