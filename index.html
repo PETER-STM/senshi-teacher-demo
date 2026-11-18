@@ -69,6 +69,25 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
 .tK .wk7 span{font-size:16px;line-height:1.2;padding:8px 0}
 .tK .wk7 small{display:block;font:500 12px 'Bodoni Moda';color:var(--mut)}
 .tK .wk7 .off{opacity:.45}
+.tK .sr small{display:block;font:400 12px 'LXGW WenKai TC';color:var(--mut);text-align:center}
+.tK .dl{display:block;padding:2px 0}
+.tK .dl b{font-weight:500;color:var(--ink)}
+.tK .dl.late{color:#8A3B2E}
+.tK .lt{color:#8A3B2E}
+.tK .draft{margin:10px 24px 0;padding:8px 12px;border:1.5px dashed var(--gold-d);border-radius:8px;font-size:13px;color:var(--gold-t)}
+.tK .pp-h{display:flex;justify-content:space-between;margin:16px 24px 0;font-size:15px;color:var(--ink)}
+.tK .pp{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 24px 0}
+.tK .st1,.tK .st0{aspect-ratio:1;border-radius:50%;display:grid;place-content:center;text-align:center;line-height:1.15}
+.tK .st1{border:2px solid var(--blue);color:var(--blue);opacity:.88}
+.tK .st1 b{font:500 14px 'Bodoni Moda'}
+.tK .st1 span{font-size:11px;padding:0 4px}
+.tK .st0{border:1.5px dashed #CDB991;color:#B5A27D;font:500 14px 'Bodoni Moda'}
+.tK .rw1{display:flex;gap:12px;align-items:baseline;margin:0 24px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+.tK .rw1 b{font:500 15px 'Bodoni Moda';color:var(--gold-t);width:58px}
+.tK .rw1 span{flex:1}
+.tK .rw1 em{font-style:normal;font-size:13px;color:var(--gold-t)}
+.tK .rw1.got em{color:var(--mut)}
+.tK .asm{margin:8px 24px 0 44px;font-size:14px;line-height:1.8;color:var(--mut)}
 .tK .wkn{display:flex;justify-content:space-between;align-items:center;margin:10px 24px 0;font-size:15px;color:var(--mut)}
 .tK .wkn b{font:500 17px 'Bodoni Moda';color:var(--ink)}
 .tK{--blue:#1F3360;--ink:#111430;--violet:#2C1F4C;--gold-d:#946B38;--gold-m:#D3B27B;--gold-l:#F9E6C1;--paper:#FCF1DD;--gold-t:#84602F;--mut:#615E6B;--sub:#A29E9A;--line:#E6D6B6}
@@ -845,6 +864,25 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
  <div class="more3">還有 2 個魔術 ⌄</div>
  <div class="tot3">累積點數　<b>128 點</b><span class="goldt">　換獎品 ›</span></div>
 </div></section>
+<section class="scr tK" data-s="P1" hidden><div class="phone paper" id="P1" style="height:auto;min-height:844px;padding-bottom:48px">
+ <div class="sb">10:12</div>
+ <div class="top"><span>‹ 作業回饋</span><span>林小橙</span></div>
+ <div class="draft">草稿：還沒看到實體護照卡，格式等 Carol 修正</div>
+ <div class="hd"><div class="d">Magic Passport</div><h1>魔術護照</h1><p>每上完一堂蓋一個章，交作業拿點數換獎品</p></div>
+ <div class="pp-h"><span>第 1 本・上了 12 堂</span><span>16 格</span></div>
+ <div class="pp" id="ppGrid"></div>
+ <div class="pp-h" style="margin-top:22px"><span>作業點數 128 點</span><span class="goldt">換獎品</span></div>
+ <div class="rw" id="rwList"></div>
+ <div class="place" style="margin-top:22px">我先假設的（請 Carol 改）</div>
+ <ol class="asm">
+  <li>一堂課蓋一個章，一本 16 格，蓋滿換下一本。</li>
+  <li>請假補課後才蓋章，缺課那格空著。</li>
+  <li>章上寫日期和那堂的魔術名稱。</li>
+  <li>點數就是「回家作業點數」，跟章分開算。</li>
+  <li>獎品和門檻是假的：50 點、100 點、150 點。</li>
+  <li>家長只能看，蓋章和換獎品由老師或管理者做。</li>
+ </ol>
+</div></section>
 <section class="scr tK" data-s="R1" hidden><div class="phone paper" id="R1" style="height:auto;min-height:844px;padding-bottom:48px">
  <div class="sb">10:12</div>
  <div class="top"><span>‹ 課表</span><span></span></div>
@@ -858,9 +896,9 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
 <section class="scr tK" data-s="R2" hidden><div class="phone paper" id="R2" style="height:auto;min-height:844px;padding-bottom:48px">
  <div class="sb">10:12</div>
  <div class="top"><span>‹ 課表</span><span>匯出</span></div>
- <div class="hd"><div class="d">November</div><h1>十一月時數</h1><p>照上班時間算：第一段前 30 分到最後一段後 30 分，自動加總；只有管理者看得到</p></div>
- <table class="m" style="margin:14px 24px 0;width:calc(100% - 48px);border-collapse:collapse"><thead><tr><th>老師</th><th>上班天數</th><th>帶課（堂）</th><th>小時</th></tr></thead><tbody></tbody></table>
- <div class="leg">算到 11/16（平日班和週末班都算）。補課、改作業、整理環境排在上班時間裡就算進去。點一個人看每天的上下班時間。</div>
+ <div class="hd"><div class="d">November</div><h1>十一月時數</h1><p>上班時間（第一段前 30 分到最後一段後 30 分）扣掉休息 1 小時；遲到再扣 1 小時。只有管理者看得到</p></div>
+ <table class="m" style="margin:14px 24px 0;width:calc(100% - 48px);border-collapse:collapse"><thead><tr><th>老師</th><th>天數</th><th>帶課</th><th>遲到</th><th>小時</th></tr></thead><tbody></tbody></table>
+ <div class="leg">算到 11/16（平日班和週末班都算）。點一個人看每天明細；點某一天可以標記或取消遲到。</div>
 </div></section>
 </div></div>
 
@@ -894,6 +932,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-off
  <h3>家長看到的</h3>
  <a href="#l3">聯絡簿<small>複習影片在最上面</small></a>
  <a href="#m3">作業回饋</a>
+ <a href="#p1">魔術護照<small>草稿・集點卡</small></a>
 </div>
 
 <script>
@@ -976,7 +1015,7 @@ link('L3','.lib .goldt','', '這裡會列出全部 6 支複習影片');
 tap('L3','.sign .btn',e=>{e.textContent='已讀 ✓';toast('老師會看到你已經看完了')});
 // M3 家長作業
 link('M3','.top span:first-child','L3');link('M3','.more3','', '展開另外 2 個魔術的評語');
-link('M3','.tot3 .goldt','', '換獎品頁（這個功能之後可以拿掉）');
+link('M3','.tot3 .goldt','P1');
 
 document.getElementById('all').onclick=()=>{document.getElementById('menu').hidden=false};
 document.getElementById('close').onclick=()=>{document.getElementById('menu').hidden=true};
@@ -1009,7 +1048,12 @@ function shifts(wk,d){const out={};const cs=ROST[wk].filter(c=>c.d===d);
   const add=(n,a,b)=>{const o=out[n]||(out[n]={s:1e9,e:0,cls:0});o.s=Math.min(o.s,mins(a));o.e=Math.max(o.e,mins(b))};
   cs.forEach(c=>staff(c).forEach(n=>{add(n,c.t1,c.t2);out[n].cls++}));
   BL[wk].filter(b=>b.d===d).forEach(b=>blkWho(wk,b).forEach(n=>add(n,b.t1,b.t2)));
-  Object.values(out).forEach(o=>{o.s-=30;o.e+=30});return out}
+  Object.entries(out).forEach(([n,o])=>{o.s-=30;o.e+=30;
+    const k=wk+d+n;o.brk=k in BRK?BRK[k]:(o.e-o.s>240?(o.s<=mins('12:00')&&o.e>=mins('13:00')?'12:00':o.s<=mins('15:00')&&o.e>=mins('16:00')?'15:00':''):'');
+    o.work=o.e-o.s-(o.brk?60:0)});return out}
+const BRK={}; // 管理者改過的休息時段：key＝週+天+人，值＝'12:00'／'15:00'／''（不休）
+const brkTxt=b=>b?`休 ${b.slice(0,2)}–${+b.slice(0,2)+1}`:'不休息';
+const fmtH=m=>(m/60)%1?(m/60).toFixed(1):m/60;
 const blkWho=(wk,b)=>[...new Set(ROST[wk].filter(c=>c.d===b.d&&c.place===b.place).flatMap(staff))];
 const TEAM=['阿米','小傑','小薰','阿凱','Momo','大寶','Leo'];
 const hasToday=()=>ROST[W1].some(c=>c.d===today&&onCls(c));
@@ -1076,7 +1120,9 @@ function renderR1(){const ph=document.querySelector('[data-s="R1"] .phone');cons
       .sort((a,b)=>a.t<b.t?-1:1).map(x=>x.h).join('');
     return `<div class="place">${p}</div>`+items+(adm?`<div class="addblk tap" data-p="${p}">＋ 加補課／改作業／整理時段</div>`:'')}).join('');
   const sh=shifts(rWeek,rDay);
-  ph.querySelector('.shift').innerHTML=(Object.keys(sh).length?'<div class="place">這天的上班時間</div>':'')+Object.entries(sh).sort((a,b)=>a[1].s-b[1].s).map(([n,o])=>`<div class="sr${n===me?' me':''}"><span>${n}</span><span>${hhmm(o.s)}–${hhmm(o.e)}</span><span>${(o.e-o.s)/60} 小時</span></div>`).join('')+(Object.keys(sh).length?'<p class="leg" style="margin:8px 24px 0">第一段前 30 分到最後一段後 30 分；中間空檔、補課、改作業、整理都算在裡面</p>':'');
+  ph.querySelector('.shift').innerHTML=(Object.keys(sh).length?'<div class="place">這天的上班時間</div>':'')+Object.entries(sh).sort((a,b)=>a[1].s-b[1].s).map(([n,o])=>`<div class="sr tap${n===me?' me':''}" data-n="${n}"><span>${n}</span><span>${hhmm(o.s)}–${hhmm(o.e)}<small>${brkTxt(o.brk)}</small></span><span>${fmtH(o.work)} 小時</span></div>`).join('')+(Object.keys(sh).length?'<p class="leg" style="margin:8px 24px 0">第一段前 30 分到最後一段後 30 分；中間空檔、補課、改作業、整理都算，休息 1 小時不算。管理者點一個人可以改休息時段</p>':'');
+  ph.querySelectorAll('.sr').forEach(r=>r.addEventListener('click',()=>{if(can('roster')!==true)return toast('休息時段由管理者排');
+    const n=r.dataset.n;pickSheet(n+' 的休息時段',['12:00–13:00','15:00–16:00','不休息'],i=>{BRK[rWeek+rDay+n]=['12:00','15:00',''][i];done()})}));
   ph.querySelector('.note').textContent=adm?'點名字可以換人；換了會通知被換的老師':'底線粗的是你。排班只有管理者能改';
   ph.querySelectorAll('.ppl b').forEach(b=>{b.classList.add('tap');b.addEventListener('click',()=>{if(can('roster')!==true)return toast('排班只有管理者能改');
     const c=all[+b.dataset.i],k=b.dataset.k,j=+b.dataset.j||0;
@@ -1094,14 +1140,27 @@ function renderR1(){const ph=document.querySelector('[data-s="R1"] .phone');cons
  }
 
 // R2 十一月時數：照上班時間算（第一段前 30 分～最後一段後 30 分），只算點過名的那天；試用版算 11/1–16
+const LATE=new Set(['小傑|11/8','Momo|11/15']); // 試用版的假遲到紀錄（打卡晚於上班時間）
 function renderR2(){const MONTH=[];for(let n=1;n<=16;n++)MONTH.push(['11/'+n,n<3||n>9?W2:W1,DAYS[(n+4)%7]]);
-  const t={};TEAM.forEach(n=>t[n]={days:[],cls:0,min:0});
-  MONTH.forEach(([date,wk,d])=>Object.entries(shifts(wk,d)).forEach(([n,o])=>{t[n].days.push(`${date} ${hhmm(o.s)}–${hhmm(o.e)}`);t[n].cls+=o.cls;t[n].min+=o.e-o.s}));
+  const t={};TEAM.forEach(n=>t[n]={days:[],cls:0,min:0,late:0});
+  MONTH.forEach(([date,wk,d])=>Object.entries(shifts(wk,d)).forEach(([n,o])=>{const late=LATE.has(n+'|'+date);
+    t[n].days.push(`<span class="dl tap${late?' late':''}" data-k="${n}|${date}">${date}　${hhmm(o.s)}–${hhmm(o.e)}　${brkTxt(o.brk)}${late?'　遲到 −1':''}　<b>${fmtH(o.work-(late?60:0))}</b></span>`);
+    t[n].cls+=o.cls;t[n].min+=o.work-(late?60:0);t[n].late+=late?1:0}));
   const rows=TEAM.map(n=>[n,t[n]]).sort((a,b)=>b[1].min-a[1].min);
-  document.querySelector('[data-s="R2"] tbody').innerHTML=rows.map(([n,v])=>`<tr class="tap" data-n="${n}"><td>${n}</td><td>${v.days.length}</td><td>${v.cls}</td><td>${(v.min/60)%1?(v.min/60).toFixed(1):v.min/60}</td></tr><tr class="det" hidden><td colspan="4">${v.days.join('<br>')||'這個月沒有排班'}</td></tr>`).join('');
-  document.querySelectorAll('[data-s="R2"] tbody tr.tap').forEach(r=>r.addEventListener('click',()=>{r.nextElementSibling.hidden=!r.nextElementSibling.hidden;fit()}))}
+  const open=[...document.querySelectorAll('[data-s="R2"] tr.det:not([hidden])')].map(r=>r.previousElementSibling.dataset.n);
+  document.querySelector('[data-s="R2"] tbody').innerHTML=rows.map(([n,v])=>`<tr class="tap" data-n="${n}"><td>${n}</td><td>${v.days.length}</td><td>${v.cls}</td><td>${v.late?`<span class="lt">${v.late}</span>`:'—'}</td><td>${fmtH(v.min)}</td></tr><tr class="det"${open.includes(n)?'':' hidden'}><td colspan="5">${v.days.join('')||'這個月沒有排班'}</td></tr>`).join('');
+  document.querySelectorAll('[data-s="R2"] tbody tr.tap').forEach(r=>r.addEventListener('click',()=>{r.nextElementSibling.hidden=!r.nextElementSibling.hidden;fit()}));
+  document.querySelectorAll('[data-s="R2"] .dl').forEach(s=>s.addEventListener('click',e=>{e.stopPropagation();const k=s.dataset.k;
+    if(LATE.has(k)){LATE.delete(k);toast('已取消遲到，這天把 1 小時加回去')}else{LATE.add(k);toast('標成遲到，這天扣 1 小時')}renderR2();fit()}))}
 link('R2','.top span:first-child','K1');link('R2','.top span:last-child','', '可以匯出成表格給會計（試用版沒做）');
 
+// P1 魔術護照（草稿）
+{const T=['撲克印刷術','超級印象','WOW3','預言陀螺','魔棒自升','變色手帕','撲克牌預言','消失的硬幣','穿越硬幣','繩索復原','杯子與球','讀心數字'];
+ const D=['9/6','9/13','9/20','9/27','10/4','10/11','10/18','10/25','11/1','11/8','11/15','11/22'];
+ document.getElementById('ppGrid').innerHTML=Array.from({length:16},(_,i)=>i<12?`<div class="st1" style="transform:rotate(${[-6,4,-2,7,-4,3,-7,5,-3,6,-5,2][i]}deg)"><b>${D[i]}</b><span>${T[i]}</span></div>`:`<div class="st0">${i+1}</div>`).join('');
+ document.getElementById('rwList').innerHTML=[[50,'魔術撲克牌一副','換過了'],[100,'魔術道具組','換過了'],[150,'上台表演證書','還差 22 點']].map(([p,n,s])=>`<div class="rw1${s.startsWith('還')?'':' got'}"><b>${p} 點</b><span>${n}</span><em>${s}</em></div>`).join('');
+ link('P1','.top span:first-child','M3');link('P1','.pp-h .goldt','', '換獎品要到教室跟老師說（試用版沒做線上換）');
+ tap('P1','.st1',e=>toast(e.querySelector('b').textContent+' 上了「'+e.querySelector('span').textContent+'」'));}
 // 上面的切換鈕
 const PERM={teacher:'<b>老師（阿米）</b><br>只看到自己排到的課。排到課的那天可以點名、寫聯絡簿；沒排到課的日子全部只能看。作業批改不限哪天。',
  asst:'<b>助教（小傑）</b><br>只看到自己排到的課。排到課的那天可以幫忙點名；聯絡簿由主老師寫；不能改學員資料。',
