@@ -36,6 +36,8 @@ body{font-family:'LXGW WenKai TC','Noto Sans TC',serif;padding-left:max(0px,env(
 .menu .x{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(16px + env(safe-area-inset-top,0px))}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:35;background:var(--paper);color:var(--ink);border-top:1.5px solid var(--gold-m);
   padding:14px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:grid;gap:8px}
+.sheet{max-width:390px;margin:0 auto;box-sizing:border-box;border-radius:14px 14px 0 0}
+.shade{position:fixed;inset:0;z-index:34;background:rgba(10,12,30,.45)}
 .sheet b{font-size:16px}
 .sheet button{font:inherit;font-size:16px;padding:12px;border-radius:8px;border:1px solid var(--gold-m);background:#fff;color:var(--ink);cursor:pointer}
 button:focus-visible,a:focus-visible{outline:2px solid var(--gold-l);outline-offset:2px}
@@ -964,9 +966,11 @@ function face(e,kind,name){e.className='mc up paper '+[...e.classList].filter(c=
   e.innerHTML='<div class="frame"></div>'+(kind==='到'?'<span class="ix">♠</span>':`<span class="lvx">${kind}</span>`)+`<div class="nm">${name}</div><div class="tm">${kind==='到'?NOW():kind==='請假'?'補課待排':'會列進好幾週沒來'}</div>`;
   e.classList.add('flip');setTimeout(()=>e.classList.remove('flip'),400);rate()}
 function backside(e,name){e.className='mc '+[...e.classList].filter(c=>/^r\d$/.test(c)).join(' ');e.style.opacity='';e.innerHTML=`<img data-img="back" alt="" src="${IMG.back}"><div class="lb">${name}</div>`;rate()}
-function sheet(e,name){document.querySelector('.sheet')?.remove();const d=document.createElement('div');d.className='sheet';
+function closeSheet(){document.querySelectorAll('.sheet,.shade').forEach(x=>x.remove())}
+function openSheet(d){closeSheet();const sh=document.createElement('div');sh.className='shade';sh.addEventListener('click',closeSheet);document.body.append(sh,d)}
+function sheet(e,name){const d=document.createElement('div');d.className='sheet';
   d.innerHTML=`<b>${name}</b><button type="button" data-k="到">到了</button><button type="button" data-k="請假">請假（之後要補課）</button><button type="button" data-k="沒來">沒來、沒請假</button><button type="button" data-k="">翻回背面（還沒到）</button><button type="button" data-k="x">取消</button>`;
-  d.addEventListener('click',ev=>{const k=ev.target.dataset?.k;if(k===undefined)return;d.remove();if(k==='x')return;if(k==='')backside(e,name);else face(e,k,name)});document.body.appendChild(d)}
+  d.addEventListener('click',ev=>{const k=ev.target.dataset?.k;if(k===undefined)return;closeSheet();if(k==='x')return;if(k==='')backside(e,name);else face(e,k,name)});openSheet(d)}
 $('K2','.mc').forEach(e=>{e.classList.add('tap');let t,long=false;
   const name=()=>(e.querySelector('.nm')||e.querySelector('.lb')).textContent;
   e.addEventListener('pointerdown',()=>{long=false;t=setTimeout(()=>{long=true;sheet(e,name())},550)});
@@ -1104,9 +1108,9 @@ link('K1','.top span:last-child','K7');link('K1','.foot .u','K3');
 
 // R1 排班（一到日）
 let rWeek='11/17–23',rDay='六';
-function pickSheet(title,opts,fn){document.querySelector('.sheet')?.remove();const d=document.createElement('div');d.className='sheet';
+function pickSheet(title,opts,fn){const d=document.createElement('div');d.className='sheet';
   d.innerHTML=`<b>${title}</b>`+opts.map((o,i)=>`<button type="button" data-i="${i}">${o}</button>`).join('')+'<button type="button" data-i="x">取消</button>';
-  d.addEventListener('click',e=>{const i=e.target.dataset?.i;if(i===undefined)return;d.remove();if(i!=='x')fn(+i)});document.body.appendChild(d)}
+  d.addEventListener('click',e=>{const i=e.target.dataset?.i;if(i===undefined)return;closeSheet();if(i!=='x')fn(+i)});openSheet(d)}
 function renderR1(){const ph=document.querySelector('[data-s="R1"] .phone');const all=ROST[rWeek],list=all.filter(c=>c.d===rDay),bl=BL[rWeek].filter(b=>b.d===rDay);
   ph.querySelector('.wkn b').textContent=rWeek;
   ph.querySelector('.wk7').innerHTML=[...DAYS].map((d,i)=>`<span data-d="${d}" class="tap${d===rDay?' on':''}${all.some(c=>c.d===d)?'':' off'}">${d}<small>${DATE(rWeek)+i}</small></span>`).join('');
@@ -1175,7 +1179,7 @@ function applyState(){document.querySelectorAll('#roleSeg button').forEach(b=>b.
 document.querySelectorAll('#roleSeg button').forEach(b=>b.addEventListener('click',()=>{role=b.dataset.r;applyState();toast('現在是「'+ROLE_LABEL[role]+'」看到的畫面')}));
 document.querySelectorAll('#daySeg button').forEach(b=>b.addEventListener('click',()=>{today=b.dataset.d;applyState()}));
 
-addEventListener('hashchange',show);addEventListener('resize',fit);applyState();show();fit();
+addEventListener('hashchange',()=>{closeSheet();show()});addEventListener('resize',fit);applyState();show();fit();
 </script>
 
 </body></html>
